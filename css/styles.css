@@ -1,14 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+
+:root {
+    --bs-font-sans-serif: Oswald;
+  }
+body {
+    background-color:  #aadbf4;
+}
 .pet-card {
     transition: transform 0.3s;
     margin-bottom: 20px;
 }
-.pet-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
 .pet-image {
     height: 200px;
     object-fit: cover;
+    border-radius: 0.75rem;
+    border: 3px solid #ffffff;
   }
 .gender-male {
     color: #0d6efd;
