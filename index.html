@@ -13,96 +13,105 @@
 <body>
     <div class="container py-5">
         <h1 class="text-center mb-4">Meet Our Pets</h1>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-success" id="createBtn">Create</button>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="petCardsContainer"></div>
+    </div>
 
-            <div class="col">
-                <div class="card">
-                    <img src="./images/zoe.jpg" class="card-img-top pet-image">
-                    <div class="card-body">
-                        <h5 class="card-title">Zoe 
-                            <span class="gender-female">&#9792;</span>
-                        </h5>
-                        <span class="badge bg-info text-dark">Dog</span>
-                        <span class="badge bg-info text-dark">2 Years</span>
-                        <a href="./detail/zoe.html" class="stretched-link"></a>
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="pet-cards-container"></div>
+
+    <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-primary" id="loadMoreBtn">Load More</button>
+    </div>
+
+    <!-- Pet Details Modal -->
+    <div class="modal fade" id="petModal" tabindex="-1" aria-labelledby="petModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="petModalLabel">Pet Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="" id="modal-pet-image" class="img-fluid rounded shadow">
+                        </div>
+                        <div class="col-md-6">
+                            <h2 id="modal-pet-name"></h2>
+                            <p><strong>Type:</strong> <span id="modal-pet-type"></span></p>
+                            <p><strong>Breed:</strong> <span id="modal-pet-breed"></span></p>
+                            <p><strong>Color:</strong> <span id="modal-pet-color"></span></p>
+                            <p><strong>Age:</strong> <span id="modal-pet-age"></span></p>
+                            <p><strong>Spayed / Neutered:</strong> <span id="modal-pet-spayed"></span></p>
+                            <p><strong>Animal ID:</strong> <span id="modal-pet-animalId"></span></p>
+                            <p><strong>Microchip Number:</strong> <span id="modal-pet-microchip"></span></p>
+
+                            <hr>
+
+                            <p><strong>Status:</strong><br>
+                                <i class="bi bi-check-circle-fill text-success me-1"></i> Health checked<br>
+                                <i class="bi bi-check-circle-fill text-success me-1"></i> Vaccinations up to date<br>
+                                <i class="bi bi-check-circle-fill text-success me-1"></i> Regularly dewormed<br>
+                                <i class="bi bi-check-circle-fill text-success me-1"></i> Microchipped
+                            </p>
+
+                            <hr>
+
+                            <p><strong>About Me:</strong><br><span id="modal-pet-about"></span></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <img src="./images/leo.jpeg" class="card-img-top pet-image">
-                    <div class="card-body">
-                        <h5 class="card-title">Leo 
-                            <span class="gender-male">&#9794;</span>
-                        </h5>
-                        <span class="badge bg-info text-dark">Cat</span>
-                        <span class="badge bg-info text-dark">1 Year</span>
-                        <a href="./detail/leo.html" class="stretched-link"></a>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
-
-            <div class="col">
-                <div class="card">
-                    <img src="./images/teddy.jpg" class="card-img-top pet-image">
-                    <div class="card-body">
-                        <h5 class="card-title">Teddy 
-                            <span class="gender-male">&#9794;</span>
-                        </h5>
-                        <span class="badge bg-info text-dark">Dog</span>
-                        <span class="badge bg-info text-dark">4 Years</span>
-                        <a href="./detail/teddy.html" class="stretched-link"></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <img src="./images/mia.jpg" class="card-img-top pet-image">
-                    <div class="card-body">
-                        <h5 class="card-title">Mia 
-                            <span class="gender-female">&#9792;</span>
-                        </h5>
-                        <span class="badge bg-info text-dark">Cat</span>
-                        <span class="badge bg-info text-dark">2 Years</span>
-                        <a href="./detail/mia.html" class="stretched-link"></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <img src="./images/rosie.jpg" class="card-img-top pet-image">
-                    <div class="card-body">
-                        <h5 class="card-title">Rosie 
-                            <span class="gender-female">&#9792;</span>
-                        </h5>
-                        <span class="badge bg-info text-dark">Dog</span>
-                        <span class="badge bg-info text-dark">5 Years</span>
-                        <a href="./detail/rosie.html" class="stretched-link"></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <img src="./images/gizmo.jpg" class="card-img-top pet-image">
-                    <div class="card-body">
-                        <h5 class="card-title">Gizmo 
-                            <span class="gender-male">&#9794;</span>
-                        </h5>
-                        <span class="badge bg-info text-dark">Cat</span>
-                        <span class="badge bg-info text-dark">2 Years</span>
-                        <a href="./detail/gizmo.html" class="stretched-link"></a>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
+    <!-- Create Pet Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" id="createPetForm" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create a New Pet</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control mb-2" placeholder="Name" name="name" required />
+                    <input class="form-control mb-2" placeholder="Species" name="species" required />
+                    <input class="form-control mb-2" placeholder="Breed" name="breed" />
+                    <input class="form-control mb-2" placeholder="Color" name="color" />
+                    <input class="form-control mb-2" placeholder="Age" name="age" required />
+                    <input class="form-control mb-2" placeholder="Animal ID" name="animalId" />
+                    <input class="form-control mb-2" placeholder="Microchip #" name="microchip" />
+                    <textarea class="form-control mb-2" placeholder="About Me" name="about" rows="3"></textarea>
+
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" name="spayed" id="spayedCheck">
+                        <label class="form-check-label" for="spayedCheck">Spayed / Neutered</label>
+                    </div>
+
+                    <select class="form-control mb-2" name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                    </select>
+
+                    <label class="form-label mt-2">Upload Pet Image</label>
+                    <input class="form-control" type="file" name="imageFile" accept="image/*" required />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="functions.js"></script>
 </body>
 
 </html>
