@@ -138,7 +138,6 @@ document.getElementById('createPetForm').addEventListener('submit', async (e) =>
     const formData = new FormData(form);
 
     const imageFile = formData.get("imageFile");
-    const imageUrl = imageFile ? URL.createObjectURL(imageFile) : "placeholder.jpg";
 
     const newPet = {
         id: getNextId(),
@@ -152,7 +151,7 @@ document.getElementById('createPetForm').addEventListener('submit', async (e) =>
         animalId: formData.get("animalId"),
         microchip: formData.get("microchip") || "N/A",
         about: formData.get("about") || "No information provided.",
-        image: imageUrl,
+        image: imageFile,
     };
 
     pets.push(newPet);
