@@ -1,5 +1,3 @@
-console.log("Script loaded - DOM fully parsed");
-
 const API_BASE_URL = 'http://localhost:3000/api';
 const BLOB_ID = 'pets';
 
@@ -10,24 +8,20 @@ const petModal = new bootstrap.Modal(document.getElementById('petModal'));
 const createModal = new bootstrap.Modal(document.getElementById('createModal'));
 
 async function fetchPets() {
-    console.log("[fetchPets] Attempting to fetch pets...");
     try {
-        const response = await fetch(`${API_BASE_URL}/${BLOB_ID}`);
-        console.log("[fetchPets] HTTP Status:", response.status);
-        
-        if (!response.ok) {
-            if (response.status === 404) {
-                console.log("[fetchPets] No data found - initializing empty dataset");
-                await initializePetsData();
-                return [];
-            }
-            throw new Error(`HTTP error! status: ${response.status}`);
+        const response = await fetch(`${API_BASE_URL}/${BLOB_ID}?_=${Date.now()}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+            throw new Error("Expected array but got:", typeof data);
         }
-        
-        const result = await response.json();
-        // Extract the pets array from the response object
-        const data = result.pets || [];
-        console.log("[fetchPets] Received data:", data.length, "pets");
+
+        if (data.length > 0 && !data[0].id) {
+            throw new Error("Malformed pet data - missing required fields");
+        }
+
         return data;
     } catch (error) {
         console.error("[fetchPets] Error:", error);
@@ -35,7 +29,6 @@ async function fetchPets() {
     }
 }
 
-// Update pets data on server
 async function updatePetsData() {
     try {
         const response = await fetch(`${API_BASE_URL}/${BLOB_ID}`, {
@@ -55,7 +48,6 @@ async function updatePetsData() {
 }
 
 function renderPetCard(pet, index) {
-    console.log("[renderPetCard] Creating card for", pet.name, "at index", index);
     const genderIcon = pet.gender === 'female' ? '&#9792;' : '&#9794;';
     const card = document.createElement('div');
     card.className = 'col';
@@ -90,29 +82,19 @@ function renderPetCard(pet, index) {
     petCardsContainer.appendChild(card);
 }
 
-// Replace your current loadPets and refreshCards functions with these:
-
 async function loadPets(count = 9) {
-    console.log("[loadPets] Loading", count, "pets. Current index:", currentIndex);
-    
     if (currentIndex === 0) {
-        console.log("[loadPets] First load - fetching pets");
         pets = await fetchPets();
-        console.log("[loadPets] Fetched", pets.length, "pets");
     }
 
-    console.log("[loadPets] Current pets array length:", pets.length);
-    
+
     for (let i = currentIndex; i < currentIndex + count && i < pets.length; i++) {
-        console.log("[loadPets] Rendering pet at index", i, pets[i].name);
         renderPetCard(pets[i], i);
     }
     currentIndex += count;
-    console.log("[loadPets] New currentIndex:", currentIndex);
 }
 
 async function refreshCards() {
-    console.log("[refreshCards] Refreshing all cards");
     petCardsContainer.innerHTML = '';
     currentIndex = 0;
     pets = await fetchPets();
@@ -140,7 +122,7 @@ function getNextId() {
     if (pets.length === 0) return 1;
     const maxId = Math.max(...pets.map(pet => pet.id));
     return maxId + 1;
-  }
+}
 
 document.getElementById('loadMoreBtn').addEventListener('click', () => {
     loadPets(9);
@@ -175,7 +157,7 @@ document.getElementById('createPetForm').addEventListener('submit', async (e) =>
 
     pets.push(newPet);
     await updatePetsData();
-    
+
     createModal.hide();
     form.reset();
     refreshCards();
